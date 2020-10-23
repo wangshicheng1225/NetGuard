@@ -8,7 +8,7 @@
 cd $SDE/pkgsrc/p4-build
 make clean
 echo 'clean done!'
-./configure --prefix=$SDE_INSTALL --with-tofino enable_thrift=yes P4_PATH=$SDE/NetGuard/tofino/syntry.p4 P4_NAME=synproxy
+./configure --prefix=$SDE_INSTALL --with-tofino enable_thrift=yes P4_PATH=/root/NetGuard/tofino/syntry.p4 P4_NAME=synproxy
 
 make -j8
 echo 'make done!'
