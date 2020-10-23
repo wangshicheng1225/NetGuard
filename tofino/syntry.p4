@@ -127,10 +127,12 @@ action lookup_session_map_reverse()
 }
 table session_check {
 	actions { lookup_session_map;}
+	default_action: lookup_session_map();
 }
 
 table session_check_reverse {
 	actions { lookup_session_map_reverse;}
+	default_action: lookup_session_map_reverse();
 }
 action read_seq_action(){
 	read_h2_seq.execute_stateful_alu(meta.tcp_session_map_index);
@@ -138,6 +140,7 @@ action read_seq_action(){
 }
 table read_seq{
 	actions {read_seq_action;}
+	default_action: read_seq_action();
 }
 action read_seq_action_reverse(){
 	read_h2_seq.execute_stateful_alu(meta.reverse_tcp_session_map_index);
@@ -145,6 +148,7 @@ action read_seq_action_reverse(){
 }
 table read_seq_reverse{
 	actions {read_seq_action_reverse;}
+	default_action: read_seq_action_reverse();
 }
 action write_seq_action(){
 	write_h2_seq.execute_stateful_alu(meta.reverse_tcp_session_map_index);
@@ -152,6 +156,7 @@ action write_seq_action(){
 }
 table write_seq{
 	actions {write_seq_action;}
+	default_action: write_seq_action();
 }
 
 
@@ -161,6 +166,7 @@ table session_init_table {
 	actions { 
 		sendback_sa;
 	}
+	default_action: sendback_sa();
 }
 
 
@@ -168,6 +174,7 @@ table session_complete_table {
 	actions { 
 		sendh2syn;
 	}
+	default_action: sendh2syn();
 }
 
 
@@ -181,6 +188,7 @@ table handle_resubmit_table{
 	{
 		set_resubmit;
 	}
+	default_action: set_resubmit();
 }
 
 
@@ -188,7 +196,8 @@ table relay_session_table
 {
 	actions{
 		sendh2ack;
-	}	
+	}
+	default_action: sendh2ack();	
 
 }
 
@@ -210,6 +219,7 @@ table inbound_tran_table2
 	actions{
 		inbound_transformation2;
 	}
+	default_action: inbound_transformation2();
 }
 
 action inbound_transformation2()
@@ -221,6 +231,7 @@ table inbound_tran_table
 	actions{
 		inbound_transformation;
 	}
+	default_action: inbound_transformation();
 }
 action outbound_transformation()
 {
@@ -233,6 +244,7 @@ table outbound_tran_table
         actions{
                 outbound_transformation;
         }
+	default_action: outbound_transformation();	
 }
 
 
@@ -264,11 +276,13 @@ action report(){
 table report_table
 {
 	actions{report;}
+	default_action: report();
 }
 
 table drop_table
 {
 	actions{_drop;}
+	default_action: _drop();
 }
 
 //**********for forward_table 
@@ -447,6 +461,7 @@ table set_heavy_hitter_count_table_1 {
     actions {
         set_heavy_hitter_count_1;
     }
+	default_action:set_heavy_hitter_count_1();
     size: 1;
 }
 //@pragma stage 1
@@ -454,6 +469,7 @@ table set_heavy_hitter_count_table_2 {
     actions {
         set_heavy_hitter_count_2;
     }
+	default_action:set_heavy_hitter_count_2();
     size: 1;
 }
 action nop(){
@@ -469,6 +485,7 @@ table acl{
 }
 table init{
 	actions{init_action_;}
+	default_action:init_action_(1024,1024);
 }
 action init_action_(thres1,thres2){
 	modify_field(meta.thres1,thres1);

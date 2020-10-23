@@ -24,6 +24,7 @@ action update_countt() {
 //@pragma stage 0
 table update_countt {
     actions {update_countt;}
+    default_action: update_countt();
 }
 
 blackbox stateful_alu write_time_in {
@@ -50,19 +51,24 @@ action time32_eg() {
 //@pragma stage 0
 table time32_in {
     actions{ time32_in;}
+    default_action: time32_in();
     size: 1;
 }
 //@pragma stage 0
 table write_time_in {
     actions { write_time_in;}
+    default_action: write_time_in();
     size: 1;
 }
 table time32_eg {
     actions {time32_eg;}
+
+    default_action: time32_eg();
     size: 1;
 }
 table write_time_eg {
     actions { write_time_eg;}
+    default_action: write_time_eg();
     size: 1;
 }
 
